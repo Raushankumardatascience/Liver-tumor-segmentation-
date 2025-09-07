@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MediScan AI - Precision Medical Imaging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-teal: #14b8a6;
+            --accent-orange: #f97316;
+            --text-dark: #1f2937;
+            --text-light: #ffffff;
+            --bg-light: #f9fafb;
+            --bg-medium: #f3f4f6;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --transition-speed: 0.3s;
+            --gradient-bg: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+        }
+
+        /* --- Global Styles & Reset --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Animations --- */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0.8; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: transform var(--transition-speed);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        nav a:hover {
+            color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .login-btn {
+            background-color: var(--accent-teal);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            transition: all var(--transition-speed);
+        }
+
+        .login-btn:hover {
+            background-color: #0d9488;
+            transform: translateY(-2px);
+            animation: pulse 0.4s;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.9s ease-out;
+        }
+
+        /* --- Main Container --- */
+        main {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 8px 20px var(--shadow-light);
+            padding: 2rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* --- Panel Styling --- */
+        .panel-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 15px var(--shadow-light);
+            padding: 2rem;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .panel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        /* --- Controls Panel --- */
+        .controls-panel {
+            min-width: 320px;
+        }
+
+        /* --- Viewer Panel --- */
+        .viewer-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* --- Control Group --- */
+        .control-group {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .control-group:last-child {
+            border-bottom: none;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* --- Input & Button Styling --- */
+        input[type="file"] {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background-color: var(--bg-light);
+            width: 100%;
+            font-size: 1rem;
+            transition: all var(--transition-speed);
+        }
+
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+            animation: pulse 0.4s;
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.6;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-teal);
+        }
+
+        .btn-accent:hover {
+            background-color: #0d9488;
+        }
+
+        .btn-orange {
+            background-color: var(--accent-orange);
+        }
+
+        .btn-orange:hover {
+            background-color: #ea580c;
+        }
+
+        /* --- Status Messages --- */
+        .status-message {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        .success {
+            color: var(--accent-teal);
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        /* --- Slider Styling --- */
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            transition: all var(--transition-speed);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            cursor: grab;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform var(--transition-speed);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            cursor: grab;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform var(--transition-speed);
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-value {
+            font-size: 0.9rem;
+            color: var(--secondary-blue);
+            float: right;
+        }
+
+        /* --- Checkbox Group --- */
+        .checkbox-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform var(--transition-speed);
+        }
+
+        .checkbox-group div:hover {
+            transform: translateX(5px);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            transform: scale(1.4);
+            accent-color: var(--accent-teal);
+            cursor: pointer;
+        }
+
+        /* --- Image Viewer --- */
+        .image-viewer {
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-medium);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+
+        #ctImage {
+            max-width: 100%;
+            max-height: 550px;
+            border-radius: var(--border-radius-sm);
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            transition: transform var(--transition-speed), opacity var(--transition-speed);
+        }
+
+        #ctImage[src*="results"] {
+            animation: zoomIn 0.5s ease-out;
+        }
+
+        .image-loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .image-loading-overlay i {
+            font-size: 3rem;
+            color: var(--accent-teal);
+            animation: spin 1.5s linear infinite;
+        }
+
+        /* --- Measurements Display --- */
+        .measurements-display {
+            padding: 2rem;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            border-radius: var(--border-radius-md);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .measurements-display p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            transition: transform var(--transition-speed);
+        }
+
+        .measurements-display p:hover {
+            transform: translateX(5px);
+        }
+
+        .measurements-display p strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        /* --- Error Messages --- */
+        .error-message {
+            color: var(--accent-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #fffbeb;
+            border: 1px solid #fed7aa;
+            border-radius: var(--border-radius-sm);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+            animation: slideIn 0.7s ease-out;
+        }
+
+        footer a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        footer a:hover {
+            color: #0d9488;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .controls-panel {
+                min-width: unset;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .app-container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i> MediScan AI
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#login" class="login-btn">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Precision Medical Imaging with AI</h1>
+        <p>Analyze CT scans with advanced AI tools for accurate tumor detection and measurement, designed for medical professionals.</p>
+    </section>
+
+    <main>
+        {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="app-container">
+            <div class="controls-panel panel-card">
+                <h2><i class="fas fa-cogs"></i> Analysis Controls</h2>
+                <form action="/" method="POST" enctype="multipart/form-data">
+                    <div class="control-group">
+                        <label for="fileInput"><i class="fas fa-upload"></i> Upload CT Scan (.nii, .nii.gz, etc.)</label>
+                        <input type="file" id="fileInput" name="file" required />
+                        <div id="statusMessage" class="status-message"></div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="confidenceSlider"><i class="fas fa-chart-line"></i> Detection Confidence: <span id="confidenceValue">85%</span></label>
+                        <input type="range" id="confidenceSlider" min="50" max="100" value="85" disabled />
+                    </div>
+
+                    <div class="control-group">
+                        <label><i class="fas fa-flask"></i> Analysis Options</label>
+                        <div class="checkbox-group">
+                            <div>
+                                <input type="checkbox" id="tumorDetection" name="options" value="tumorDetection" checked disabled />
+                                <label for="tumorDetection">Tumor Detection</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="volumetricAnalysis" name="options" value="volumetricAnalysis" disabled />
+                                <label for="volumetricAnalysis">Volumetric Analysis</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="3dRendering" name="options" value="3dRendering" disabled />
+                                <label for="3dRendering">3D Rendering</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" id="analyzeBtn" class="btn-accent"><i class="fas fa-play"></i> Run Analysis</button>
+                        <button type="reset" id="resetBtn" class="btn-orange"><i class="fas fa-sync-alt"></i> Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="viewer-panel">
+                <div class="image-viewer panel-card">
+                    {% if result_image %}
+                        <img id="ctImage" src="{{ result_image }}" alt="Analyzed CT Scan" />
+                    {% else %}
+                        <img id="ctImage" src="https://via.placeholder.com/800x600.png?text=Upload+a+CT+Scan+to+Begin" alt="CT Scan" />
+                    {% endif %}
+                </div>
+
+                <div class="measurements-display panel-card">
+                    <h2><i class="fas fa-chart-bar"></i> Analysis Results</h2>
+                    <div id="resultsContent">
+                        {% if tumor_vol %}
+                            <p><strong>Status:</strong> Analysis Complete <i class="fas fa-check-circle success"></i></p>
+                            <p><strong>Tumor Volume:</strong> {{ tumor_vol }}</p>
+                            <p><strong>Confidence Score:</strong> 95%</p>
+                        {% else %}
+                            <p><strong>Status:</strong> Not Analyzed</p>
+                            <p><strong>Tumors Detected:</strong> 0</p>
+                            <p><strong>Largest Tumor Size:</strong> N/A</p>
+                            <p><strong>Confidence Score:</strong> N/A</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 MediScan AI. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+    <script>
+        // Disable form elements initially and enable them only when a file is selected
+        const fileInput = document.getElementById('fileInput');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const confidenceSlider = document.getElementById('confidenceSlider');
+        const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                analyzeBtn.disabled = false;
+                confidenceSlider.disabled = false;
+                checkboxes.forEach(cb => cb.disabled = false);
+            } else {
+                analyzeBtn.disabled = true;
+                confidenceSlider.disabled = true;
+                checkboxes.forEach(cb => cb.disabled = true);
+            }
+        });
+
+        // Simple client-side validation
+        analyzeBtn.addEventListener('click', (event) => {
+            if (!fileInput.files.length) {
+                event.preventDefault();
+                alert('Please select a file to upload.');
+            }
+        });
+
+        // Update slider value display
+        confidenceSlider.addEventListener('input', (event) => {
+            const confidenceValue = document.getElementById('confidenceValue');
+            confidenceValue.textContent = `${event.target.value}%`;
+        });
+    </script>
+</body>
+</html>

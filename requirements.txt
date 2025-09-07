@@ -1,0 +1,10 @@
+torch
+torchvision
+numpy
+scipy
+matplotlib
+nibabel 
+pydicom
+Pillow # PIL is now Pillow
+Flask
+werkzeug
